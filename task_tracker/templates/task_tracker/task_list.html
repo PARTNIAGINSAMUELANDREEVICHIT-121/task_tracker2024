@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff; /* Изменен фон на белый цвет */
+            color: #000; /* Цвет текста теперь черный для лучшей читаемости */
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00f; /* Цвет заголовка изменен на синий */
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000; /* Цвет рамки таблицы теперь черный */
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #000; /* Цвет линий между ячейками теперь черный */
+        }
+        
+        th.title { background-color: #003366; color: #fff; } /* Изменен цвет фона и текста заголовка */
+        th.priority { background-color: #660033; color: #fff; } /* Изменен цвет фона и текста приоритета */
+        th.status { background-color: #336600; color: #fff; } /* Изменен цвет фона и текста статуса */
+        
+        tr:nth-child(even) {
+            background-color: #f0f0f0; /* Цвет фона для четных строк теперь светло-серый */
+        }
+        
+        tr:hover {
+            background-color: #ccc; /* Цвет фона при наведении теперь светло-серый */
+        }
+        
+        a {
+            color: #00f; /* Цвет ссылок изменен на синий */
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: #000; /* Цвет ссылок при наведении теперь черный */
+        }
+        
+        /* Кнопка удалить всегда красного цвета */
+        .delete-button {
+            color: red;
+        }
+        
+        /* Стили для разных уровней приоритета */
+        .priority-low::before { content: '●'; color: red; }
+        .priority-medium::before { content: '●'; color: yellow; }
+        .priority-high::before { content: '●'; color: green; }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Список задач</h1>
+        <table border="1">
+            <tr>
+                <th class="title">Заголовок</th>
+                <th class="priority">Приоритет</th>
+                <th class="status">Статус</th>
+                <th>Действия</th>
+            </tr>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                {% if task.priority == 'Low' %}
+                    <td class="priority-low">{{ task.get_priority_display }}</td>
+                {% elif task.priority == 'Medium' %}
+                    <td class="priority-medium">{{ task.get_priority_display }}</td>
+                {% else %}
+                    <td class="priority-high">{{ task.get_priority_display }}</td>
+                {% endif %}
+                <td class="status-{{ task.status|lower }}">{{ task.get_status_display }}</td>
+                <td>
+                    <a href="{% url 'edit_task' task.id %}">Изменить</a>
+                    <a class="delete-button" href="{% url 'delete_task' task.id %}" onclick="return confirm('Вы уверены, что хотите удалить эту задачу?')">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'create_task' %}">Создать задачу</a>
+    </div>
+</body>
+</html>

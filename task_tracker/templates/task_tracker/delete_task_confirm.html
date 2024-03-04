@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удалить задачу</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f0f;
+        }
+        button {
+            background-color: #660033;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #550022;
+        }
+        a {
+            color: #0f0;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #0a0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Удалить задачу</h1>
+        <p>Вы уверены, что хотите удалить "{{ task.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Удалить</button>
+            <a href="{% url 'task_list' %}">Отмена</a>
+        </form>
+    </div>
+</body>
+</html>

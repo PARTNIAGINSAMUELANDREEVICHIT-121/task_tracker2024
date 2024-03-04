@@ -1,0 +1,38 @@
+/* static/css/styles.css */
+
+select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.priority-low {
+    color: red;
+}
+
+.priority-medium {
+    color: yellow;
+}
+
+.priority-high {
+    color: green;
+}
+
+.status-new {
+    color: white;
+}
+
+.status-in-progress {
+    color: orange;
+}
+
+.status-done {
+    color: green;
+}
+
+.status-cancelled {
+    color: red;
+}
+
+.status-postponed {
+    color: purple;
+}

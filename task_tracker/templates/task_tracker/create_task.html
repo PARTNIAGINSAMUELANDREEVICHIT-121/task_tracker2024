@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать задачу</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff; /* Фон белый */
+            color: #000; /* Цвет текста черный */
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f00; /* Цвет заголовка красный */
+        }
+        
+        button {
+            background-color: #660033; /* Цвет кнопки темно-фиолетовый */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #550022; /* Цвет кнопки при наведении темнее */
+        }
+        
+        a {
+            color: #0f0; /* Цвет ссылок зеленый */
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: #0a0; /* Цвет ссылок при наведении светлее */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Создать задачу</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Создать</button>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#id_priority, #id_status').change(function() {
+                    var color = '';
+                    switch($(this).val()) {
+                        case 'Низкий':
+                            color = 'red';
+                            break;
+                        case 'Средний':
+                            color = 'yellow';
+                            break;
+                        case 'Высокий':
+                            color = 'green';
+                            break;
+                        case 'Новая':
+                            color = 'white';
+                            break;
+                        case 'В прогрессе':
+                            color = 'orange';
+                            break;
+                        case 'Выполнено':
+                            color = 'green';
+                            break;
+                        case 'Отменено':
+                            color = 'red';
+                            break;
+                        case 'Отложено':
+                            color = 'purple';
+                            break;
+                        default:
+                            color = 'black';
+                    }
+                    $(this).css('color', color);
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
